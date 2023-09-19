@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>更新球队</title>
+		<script type="text/javascript" src="/js/jquery-1.11.1.js"></script>
+		<script type="text/javascript" src="/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css"></link>
+		<link rel="stylesheet" type="text/css" href="/css/style.css"></link>
+		<style>
+			label span{color: #ff0000; padding-right: 5px;}
+		</style>
+	</head>
+
+	<body>
+		<h2>更新球队</h2>
+		<form id="myForm" class="form-horizontal">
+			<!--springmvc的restful风格处理非get post方式请求必备参数-->
+			<!--<input name="_method"  type="hidden" value="PUT"/>-->
+			<div class="form-group">
+				<label class="col-sm-1 control-label"><span>*</span>球队ID</label>
+				<div class="col-sm-9">
+					<input name="teamId"  type="text" disabled/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">球队logo</label>
+				<div class="col-sm-9">
+					<img name="logo" src="/img/uploadFile/"/>
+				</div>
+			</div>			
+			<div class="form-group">
+				<label class="col-sm-1 control-label"><span>*</span>英文名称</label>
+				<div class="col-sm-9">
+					<input required="required" name="teamName" class="form-control" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label"><span>*</span>中文名称</label>
+				<div class="col-sm-9">
+					<input required="" name="chineseName" class="form-control" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">主教练</label>
+				<div class="col-sm-9">
+					<input name="coach" class="form-control" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">主场馆</label>
+				<div class="col-sm-9">
+					<input name="stadium" class="form-control" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">所属地区</label>
+				<div class="col-sm-9">
+					<input name="location" class="form-control" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">成立时间</label>
+				<div class="col-sm-2">
+					<input name="createTime" class="form-control" type="date"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">所属联盟</label>
+				<div class="col-sm-2">
+					<select name="area" class="form-control">
+         				<option value="-1">请选择所属联盟</option>
+         				<option value="0">东部联盟</option>
+         				<option value="1">西部联盟</option>
+			      	</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label"></label>
+				<div class="col-sm-9">
+					<button id="btnUpdate" type="button" class="btn btn-sm btn-info">提&nbsp;交</button>
+					<button type="reset"  class="btn btn-sm btn-warning">重&nbsp;置</button>
+				</div>
+			</div>
+		</form>		
+	</body>
+</html>
+<script>
+	String.prototype.GetValue= function(para) {
+		let reg = new RegExp("(^|&)"+ para +"=([^&]*)(&|$)");
+		let r = this.substr(this.indexOf("\?")+1).match(reg);
+		if (r!=null) return unescape(r[2]); return null;
+	}
+	$(function () {
+		//根据地址获取teamId,如果null则执行增加，否则执行更新
+		let url = document.location.toString();//获取URL
+		let teamId=url.GetValue("teamId");
+		let pageNum=url.GetValue("pageNum");
+		let pageSize=url.GetValue("pageSize");
+		//alert(teamId);
+		//根据id查询要更新的球队信息并回显到页面
+		queryById(teamId);
+		//提交按钮的单击事件--实现真正的更新
+		$("#btnUpdate").click(function () {
+			$.ajax({
+				type: "POST",//这里必须写POST
+				url: "/team/"+teamId,
+				data: $("#myForm").serialize()+"&_method=PUT",
+				dataType:"json",
+				success: function(vo){
+					if(vo.code==200) {
+						window.location.href = "/pages/team/list.html?pageNum="+pageNum+"&pageSize="+pageSize;
+					}else{
+						alert("更新失败！"+vo.msg);
+					}
+				}
+			});
+		});
+	});
+	function queryById(teamId) {
+		$.ajax({
+			type: "GET",
+			url: "/team/"+teamId, //RESTful风格的API定义
+			data: "",
+			success: function (vo) {
+				let obj=vo.obj;
+				let teamId=obj.teamId;
+				let teamLogo=obj.teamLogo;
+				let teamName=obj.teamName;
+				let chineseName=obj.chineseName;
+				let coach=obj.coach;
+				let stadium=obj.stadium;
+				let location=obj.location;
+				let time=obj.createTime;
+				let area=obj.area;
+				$("input[name='teamId']").val(teamId);
+				$("input[name='teamName']").val(teamName);
+				$("input[name='chineseName']").val(chineseName);
+				$("input[name='coach']").val(coach);
+				$("input[name='stadium']").val(stadium);
+				$("input[name='location']").val(location);
+				$("input[name='createTime']").val(time);
+				$("select[name='area']").val(area);
+				if(teamLogo!=null){
+					$("img[name='teamLogo']").attr("src","/img/uploadFile/"+teamLogo);
+				}else{
+					$("img[name='teamLogo']").addClass("hidden");
+					$("img[name='teamLogo']").parent().html("还没有上传logo图片");
+				}
+			}
+		});
+	}
+
+</script>

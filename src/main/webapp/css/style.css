@@ -1,0 +1,80 @@
+h2,td,th{
+	text-align: center;
+}
+
+/*搜索面板的样式*/
+.searchDiv{
+  padding: 10px;
+}
+.searchDiv input,.searchDiv select{
+ /* display: block;*/
+  width: 137px;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+
+.btn-kkb {
+  color: #fff;
+  background-color:#5fd0FF ;
+  border-color: #1EABFF;
+}
+.btn-kkb:focus,
+.btn-kkb.focus {
+  color: #fff;
+  background-color:#1EABFF ;
+  border-color: #0281E8;
+}
+.btn-kkb:hover {
+  color: #fff;
+  background-color: #1EABFF;
+  border-color: #0281E8;
+}
+.btn-kkb:active,
+.btn-kkb.active,
+.open > .dropdown-toggle.btn-kkb {
+  color: #fff;
+  background-color: #1EABFF;
+  border-color: #0281E8;
+}
+.btn-kkb:active:hover,
+.btn-kkb.active:hover,
+.open > .dropdown-toggle.btn-kkb:hover,
+.btn-kkb:active:focus,
+.btn-kkb.active:focus,
+.open > .dropdown-toggle.btn-kkb:focus,
+.btn-kkb:active.focus,
+.btn-kkb.active.focus,
+.open > .dropdown-toggle.btn-kkb.focus {
+  color: #fff;
+  background-color: #1EABFF;
+  border-color: #0281E8;
+}
+.btn-kkb:active,
+.btn-kkb.active,
+.open > .dropdown-toggle.btn-kkb {
+  background-image: none;
+}
+.btn-kkb.disabled:hover,
+.btn-kkb[disabled]:hover,
+fieldset[disabled] .btn-kkb:hover,
+.btn-kkb.disabled:focus,
+.btn-kkb[disabled]:focus,
+fieldset[disabled] .btn-kkb:focus,
+.btn-kkb.disabled.focus,
+.btn-kkb[disabled].focus,
+fieldset[disabled] .btn-kkb.focus {
+  background-color: #1EABFF;
+  border-color: #0281E8;
+}
+.btn-kkb .badge {
+  color: #0281E8;
+  background-color: #fff;
+}

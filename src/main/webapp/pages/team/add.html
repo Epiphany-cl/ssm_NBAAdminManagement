@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>添加球队</title>
+		<script type="text/javascript" src="/js/jquery-1.11.1.js"></script>
+		<script type="text/javascript" src="/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css"></link>
+		<link rel="stylesheet" type="text/css" href="/css/style.css"></link>
+		<style>
+			label span{color: #ff0000; padding-right: 5px;}
+		</style>
+	</head>
+
+	<body>
+		<h2>添加球队</h2>
+		<form id="myForm" class="form-horizontal" method="post" action="/team">
+			<div class="form-group">
+				<label class="col-sm-1 control-label"><span>*</span>英文名称</label>
+				<div class="col-sm-9">
+					<input required="required" name="teamName" class="form-control" placeholder="请输入球队英文名称"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label"><span>*</span>中文名称</label>
+				<div class="col-sm-9">
+					<input required="" name="chineseName" class="form-control" placeholder="请输入球队中文名称"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">主教练</label>
+				<div class="col-sm-9">
+					<input name="coach" class="form-control" placeholder="请输入主教练姓名"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">主场馆</label>
+				<div class="col-sm-9">
+					<input name="stadium" class="form-control" placeholder="请输入主场馆名称"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">所属地区</label>
+				<div class="col-sm-9">
+					<input name="location" class="form-control" placeholder="请输入所属地区"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">成立时间</label>
+				<div class="col-sm-2">
+					<input name="createTime" class="form-control" type="date"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label">所属联盟</label>
+				<div class="col-sm-2">
+					<select name="area" class="form-control">
+         				<option value="-1">请选择所属联盟</option>
+         				<option value="0">东部联盟</option>
+         				<option value="1">西部联盟</option>
+			      	</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-1 control-label"></label>
+				<div class="col-sm-9">
+					<button id="btnAdd" type="button" class="btn btn-sm btn-info">提&nbsp;交</button>
+					<button type="reset"  class="btn btn-sm btn-warning">重&nbsp;置</button>
+				</div>
+			</div>
+		</form>		
+	</body>
+</html>
+<script>
+	$(function () {
+		//提交按钮的单击事件
+		$("#btnAdd").click(function () {
+			$.ajax({
+				type: "POST",
+				url: "/team/",
+				data: $("#myForm").serialize(),
+				dataType:"json",
+				success: function(vo){
+					if(vo.code==200) {
+						window.location.href = "/pages/team/list.html";
+					}else{
+						alert("添加失败！"+vo.msg);
+					}
+				}
+			});
+		});
+	});
+</script>
