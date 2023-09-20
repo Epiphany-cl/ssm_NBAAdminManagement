@@ -6,10 +6,7 @@ import com.lina.service.TeamService;
 import com.lina.vo.ResultVO;
 import com.lina.vo.TeamQueryVO;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -43,15 +40,29 @@ public class TeamController {
         int res = teamService.addTeam(team);
         if (res == 1) {
             return new ResultVO<>();
-        }else {
-            return new ResultVO<>(200,"你瞅啥！");
+        } else {
+            return new ResultVO<>(555, "你瞅啥！");
         }
     }
 
-    //更新修改team
-    @RequestMapping("")
-    public ResultVO<Team> updateTeamInfo(){
-
-        return null;
+    /*更新修改team*/
+    //1. 根据id查询team
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    public ResultVO<Team> queryTeamById(@PathVariable("id") Integer id) {
+        Team team = teamService.queryTeamById(id);
+        return new ResultVO<>(team);
     }
+    //2. 修改更新team
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+    public ResultVO<Team> updateTeamInfo(@PathVariable("id") Integer id, Team team) {
+        team.setTeamId(id);
+        int res = teamService.updateTeamById(team);
+        if (res == 1) {
+            return new ResultVO<>();
+        } else {
+            return new ResultVO<>(555, "你瞅啥！");
+        }
+    }
+
+
 }

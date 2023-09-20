@@ -60,4 +60,12 @@ public class TeamService {
     public int addTeam(Team team) {
         return teamMapper.insertSelective(team); //insertSelective是动态插入 用了 <if> 标签。
     }
+
+    public Team queryTeamById(Integer id) {
+        return teamMapper.selectByPrimaryKey(id);
+    }
+
+    public int updateTeamById(Team team) {
+        return teamMapper.updateByPrimaryKeySelective(team);
+    }
 }
