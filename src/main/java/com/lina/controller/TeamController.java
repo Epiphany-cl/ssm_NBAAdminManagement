@@ -33,7 +33,25 @@ public class TeamController {
             pageSize = 5;
         }
 
-       PageInfo<Team> pageInfo = teamService.queryByPageAndCondition(pageNum,pageSize,queryVO);
+        PageInfo<Team> pageInfo = teamService.queryByPageAndCondition(pageNum, pageSize, queryVO);
         return new ResultVO<>(pageInfo);
+    }
+
+    //添加team
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public ResultVO<Team> addTeam(Team team) {
+        int res = teamService.addTeam(team);
+        if (res == 1) {
+            return new ResultVO<>();
+        }else {
+            return new ResultVO<>(200,"你瞅啥！");
+        }
+    }
+
+    //更新修改team
+    @RequestMapping("")
+    public ResultVO<Team> updateTeamInfo(){
+
+        return null;
     }
 }

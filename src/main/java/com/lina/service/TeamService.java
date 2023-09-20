@@ -56,4 +56,8 @@ public class TeamService {
 
         return new PageInfo<>(teams);
     }
+
+    public int addTeam(Team team) {
+        return teamMapper.insertSelective(team); //insertSelective是动态插入 用了 <if> 标签。
+    }
 }
