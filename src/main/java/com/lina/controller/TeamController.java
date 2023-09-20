@@ -52,11 +52,24 @@ public class TeamController {
         Team team = teamService.queryTeamById(id);
         return new ResultVO<>(team);
     }
+
     //2. 修改更新team
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public ResultVO<Team> updateTeamInfo(@PathVariable("id") Integer id, Team team) {
         team.setTeamId(id);
         int res = teamService.updateTeamById(team);
+        if (res == 1) {
+            return new ResultVO<>();
+        } else {
+            return new ResultVO<>(555, "你瞅啥！");
+        }
+    }
+
+    //删除
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    public ResultVO<Team> deleteTeamById(@PathVariable Integer id) {
+        int res = teamService.deleteTeamById(id);
+
         if (res == 1) {
             return new ResultVO<>();
         } else {

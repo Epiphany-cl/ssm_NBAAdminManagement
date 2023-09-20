@@ -11,3 +11,4 @@ spring+springMVC+mybatis 的第一个项目
 1. [x] team页面的分页条件查询
 2. [x] 添加team
 3. [x] 更新team 
+4. [x] 删除(逻辑删除)

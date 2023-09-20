@@ -51,7 +51,7 @@ public class TeamService {
         }
 
         //分页查询
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<Team> teams = teamMapper.selectByExample(teamExample);
 
         return new PageInfo<>(teams);
@@ -66,6 +66,12 @@ public class TeamService {
     }
 
     public int updateTeamById(Team team) {
+        return teamMapper.updateByPrimaryKeySelective(team);
+    }
+
+    public int deleteTeamById(Integer id) {
+        Team team = teamMapper.selectByPrimaryKey(id);
+        team.setIsDel(1);
         return teamMapper.updateByPrimaryKeySelective(team);
     }
 }
