@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lina.mapper.GameMapper">
+  <resultMap id="BaseResultMap" type="com.lina.pojo.Game">
+    <id column="gameId" jdbcType="INTEGER" property="gameId" />
+    <result column="gameDate" jdbcType="TIMESTAMP" property="gameDate" />
+    <result column="homeTeamId" jdbcType="INTEGER" property="homeTeamId" />
+    <result column="homeTeamScore" jdbcType="INTEGER" property="homeTeamScore" />
+    <result column="visitingTeamId" jdbcType="INTEGER" property="visitingTeamId" />
+    <result column="visitingTeamScore" jdbcType="INTEGER" property="visitingTeamScore" />
+    <result column="typeId" jdbcType="INTEGER" property="typeId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="isDel" jdbcType="INTEGER" property="isDel" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    gameId, gameDate, homeTeamId, homeTeamScore, visitingTeamId, visitingTeamScore, typeId, 
+    status, isDel
+  </sql>
+  <select id="selectByExample" parameterType="com.lina.pojo.GameExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from game
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from game
+    where gameId = #{gameId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from game
+    where gameId = #{gameId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lina.pojo.GameExample">
+    delete from game
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lina.pojo.Game">
+    insert into game (gameId, gameDate, homeTeamId, 
+      homeTeamScore, visitingTeamId, visitingTeamScore, 
+      typeId, status, isDel
+      )
+    values (#{gameId,jdbcType=INTEGER}, #{gameDate,jdbcType=TIMESTAMP}, #{homeTeamId,jdbcType=INTEGER}, 
+      #{homeTeamScore,jdbcType=INTEGER}, #{visitingTeamId,jdbcType=INTEGER}, #{visitingTeamScore,jdbcType=INTEGER}, 
+      #{typeId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lina.pojo.Game">
+    insert into game
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gameId != null">
+        gameId,
+      </if>
+      <if test="gameDate != null">
+        gameDate,
+      </if>
+      <if test="homeTeamId != null">
+        homeTeamId,
+      </if>
+      <if test="homeTeamScore != null">
+        homeTeamScore,
+      </if>
+      <if test="visitingTeamId != null">
+        visitingTeamId,
+      </if>
+      <if test="visitingTeamScore != null">
+        visitingTeamScore,
+      </if>
+      <if test="typeId != null">
+        typeId,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="isDel != null">
+        isDel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gameId != null">
+        #{gameId,jdbcType=INTEGER},
+      </if>
+      <if test="gameDate != null">
+        #{gameDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="homeTeamId != null">
+        #{homeTeamId,jdbcType=INTEGER},
+      </if>
+      <if test="homeTeamScore != null">
+        #{homeTeamScore,jdbcType=INTEGER},
+      </if>
+      <if test="visitingTeamId != null">
+        #{visitingTeamId,jdbcType=INTEGER},
+      </if>
+      <if test="visitingTeamScore != null">
+        #{visitingTeamScore,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null">
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lina.pojo.GameExample" resultType="java.lang.Long">
+    select count(*) from game
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update game
+    <set>
+      <if test="record.gameId != null">
+        gameId = #{record.gameId,jdbcType=INTEGER},
+      </if>
+      <if test="record.gameDate != null">
+        gameDate = #{record.gameDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.homeTeamId != null">
+        homeTeamId = #{record.homeTeamId,jdbcType=INTEGER},
+      </if>
+      <if test="record.homeTeamScore != null">
+        homeTeamScore = #{record.homeTeamScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.visitingTeamId != null">
+        visitingTeamId = #{record.visitingTeamId,jdbcType=INTEGER},
+      </if>
+      <if test="record.visitingTeamScore != null">
+        visitingTeamScore = #{record.visitingTeamScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeId != null">
+        typeId = #{record.typeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDel != null">
+        isDel = #{record.isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update game
+    set gameId = #{record.gameId,jdbcType=INTEGER},
+      gameDate = #{record.gameDate,jdbcType=TIMESTAMP},
+      homeTeamId = #{record.homeTeamId,jdbcType=INTEGER},
+      homeTeamScore = #{record.homeTeamScore,jdbcType=INTEGER},
+      visitingTeamId = #{record.visitingTeamId,jdbcType=INTEGER},
+      visitingTeamScore = #{record.visitingTeamScore,jdbcType=INTEGER},
+      typeId = #{record.typeId,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      isDel = #{record.isDel,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lina.pojo.Game">
+    update game
+    <set>
+      <if test="gameDate != null">
+        gameDate = #{gameDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="homeTeamId != null">
+        homeTeamId = #{homeTeamId,jdbcType=INTEGER},
+      </if>
+      <if test="homeTeamScore != null">
+        homeTeamScore = #{homeTeamScore,jdbcType=INTEGER},
+      </if>
+      <if test="visitingTeamId != null">
+        visitingTeamId = #{visitingTeamId,jdbcType=INTEGER},
+      </if>
+      <if test="visitingTeamScore != null">
+        visitingTeamScore = #{visitingTeamScore,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null">
+        typeId = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        isDel = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where gameId = #{gameId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lina.pojo.Game">
+    update game
+    set gameDate = #{gameDate,jdbcType=TIMESTAMP},
+      homeTeamId = #{homeTeamId,jdbcType=INTEGER},
+      homeTeamScore = #{homeTeamScore,jdbcType=INTEGER},
+      visitingTeamId = #{visitingTeamId,jdbcType=INTEGER},
+      visitingTeamScore = #{visitingTeamScore,jdbcType=INTEGER},
+      typeId = #{typeId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      isDel = #{isDel,jdbcType=INTEGER}
+    where gameId = #{gameId,jdbcType=INTEGER}
+  </update>
+</mapper>

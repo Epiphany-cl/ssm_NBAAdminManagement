@@ -8,7 +8,7 @@
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
     ">
     <!--包扫描-->
-    <context:component-scan base-package="com.cl.mapper,com.cl.service"/>
+    <context:component-scan base-package="com.lina.mapper,com.lina.service"/>
     <!--spring整合mybatis-->
     <context:property-placeholder location="classpath*:jdbc.properties"/>
     <!--数据源-->
@@ -26,7 +26,7 @@
         <!--别名-->
         <property name="typeAliasesPackage" value="com.lina.pojo"/>
         <!--注册映射文件 ：扫描-->
-        <property name="mapperLocations" value="classpath*:com/lina/mapper/*.xml"/>
+        <!--<property name="mapperLocations" value="classpath*:com/lina/mapper/*.xml"/>-->
         <!--数据源-->
         <property name="plugins">
             <array>

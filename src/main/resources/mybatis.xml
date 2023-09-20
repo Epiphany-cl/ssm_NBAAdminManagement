@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <settings>
-        <setting name="logImpl" value="LOG4J" />
+        <setting name="logImpl" value="LOG4J"/>
     </settings>
-    <!--spring 接管其他的工作 数据源  映射文件注册 插件-->
+    <!--spring 接管其他的工作  数据源  映射文件注册  插件-->
 </configuration>
