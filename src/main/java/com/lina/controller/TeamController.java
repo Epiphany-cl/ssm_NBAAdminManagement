@@ -7,8 +7,14 @@ import com.lina.vo.ResultVO;
 import com.lina.vo.TeamQueryVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.MultipartFilter;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
 @Controller
 @ResponseBody
@@ -77,5 +83,41 @@ public class TeamController {
         }
     }
 
+    //图片上传
+    @RequestMapping(value = "{id}", method = RequestMethod.POST)
+    public ResultVO<Team> uploadLogo(@PathVariable("id") Integer id,
+                                     @RequestParam("logo") MultipartFile myFile,
+                                     HttpServletRequest request) {
+        //获得服务器上文件夹
+        String path = request.getServletContext().getRealPath("/img/uploadFile");
+        //获得图片原石名字
+        String originalFilename = myFile.getOriginalFilename();
+        //修改名字
+        /*1.获得后缀*/
+        String fileSuffix = null;
+        if (originalFilename != null) {
+            fileSuffix = originalFilename.substring(originalFilename.lastIndexOf('.'));
+        }
+        /*随机字符串*/
+        String randomStr = UUID.randomUUID().toString().replace("-", "");
+        /*组合*/
+        String newFileName = randomStr + fileSuffix;
+
+        int res = 0;
+        try {
+            myFile.transferTo(new File(path + "/" + newFileName));
+            Team team = teamService.queryTeamById(id);
+            team.setTeamLogo(newFileName);
+            res = teamService.updateTeamById(team);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResultVO<>(555, "你瞅啥！");
+        }
+        if (res == 1) {
+            return new ResultVO<>();
+        } else {
+            return new ResultVO<>(555, "你瞅啥！");
+        }
+    }
 
 }
