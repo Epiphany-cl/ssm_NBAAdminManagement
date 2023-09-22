@@ -13,3 +13,7 @@ spring+springMVC+mybatis 的第一个项目
 3. [x] 更新team 
 4. [x] team删除(逻辑删除)
 5. [x] team logo图片上传
+
+### 2023年9月22日
+
+1.[x] game 页面的分页条件查询

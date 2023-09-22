@@ -30,6 +30,7 @@
         <!--数据源-->
         <property name="plugins">
             <array>
+                <!--分页插件-->
                 <bean class="com.github.pagehelper.PageInterceptor">
                     <property name="properties">
                         <value>

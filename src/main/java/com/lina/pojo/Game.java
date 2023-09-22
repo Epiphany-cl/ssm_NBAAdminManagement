@@ -1,10 +1,15 @@
 package com.lina.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Game {
     private Integer gameId;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date gameDate;
 
     private Integer homeTeamId;
@@ -20,6 +25,21 @@ public class Game {
     private Integer status;
 
     private Integer isDel;
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "gameId=" + gameId +
+                ", gameDate=" + gameDate +
+                ", homeTeamId=" + homeTeamId +
+                ", homeTeamScore=" + homeTeamScore +
+                ", visitingTeamId=" + visitingTeamId +
+                ", visitingTeamScore=" + visitingTeamScore +
+                ", typeId=" + typeId +
+                ", status=" + status +
+                ", isDel=" + isDel +
+                '}';
+    }
 
     public Integer getGameId() {
         return gameId;

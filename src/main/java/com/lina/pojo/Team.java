@@ -17,7 +17,6 @@ public class Team {
     private String stadium;
 
     private String location;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createTime;

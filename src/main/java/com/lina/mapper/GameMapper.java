@@ -1,8 +1,11 @@
 package com.lina.mapper;
 
+import com.github.pagehelper.PageInfo;
 import com.lina.pojo.Game;
 import com.lina.pojo.GameExample;
 import java.util.List;
+
+import com.lina.vo.GameQueryVO;
 import org.apache.ibatis.annotations.Param;
 
 public interface GameMapper {
@@ -27,4 +30,6 @@ public interface GameMapper {
     int updateByPrimaryKeySelective(Game record);
 
     int updateByPrimaryKey(Game record);
+
+
 }
