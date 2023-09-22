@@ -16,4 +16,4 @@ spring+springMVC+mybatis 的第一个项目
 
 ### 2023年9月22日
 
-1.[x] game 页面的分页条件查询
+1. [x] game 页面的分页条件查询
